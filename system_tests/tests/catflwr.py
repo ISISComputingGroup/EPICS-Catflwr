@@ -3,11 +3,10 @@ import unittest
 from utils.channel_access import ChannelAccess
 from utils.ioc_launcher import get_default_ioc_dir
 from utils.test_modes import TestModes
-from utils.testing import get_running_lewis_and_ioc, skip_if_recsim
-
+from utils.testing import get_running_lewis_and_ioc
+from parameterized import parameterized
 
 DEVICE_PREFIX = "CATFLWR_01"
-
 
 IOCS = [
     {
@@ -19,7 +18,7 @@ IOCS = [
 ]
 
 
-TEST_MODES = [TestModes.RECSIM, TestModes.DEVSIM]
+TEST_MODES = [TestModes.DEVSIM]
 
 
 class CatflwrTests(unittest.TestCase):
@@ -28,7 +27,19 @@ class CatflwrTests(unittest.TestCase):
     """
     def setUp(self):
         self._lewis, self._ioc = get_running_lewis_and_ioc("Catflwr", DEVICE_PREFIX)
-        self.ca = ChannelAccess(device_prefix=DEVICE_PREFIX)
+        self.ca = ChannelAccess(device_prefix=DEVICE_PREFIX, default_timeout=30)
 
-    def test_that_fails(self):
-        self.fail("You haven't implemented any tests!")
+    @parameterized.expand(
+        [
+            [2, 3, 0],
+            [1, 2, 1]
+        ]
+    )
+    def test_GIVEN_expected_defaults_from_device_WHEN_getting_getting_each_pv_THEN_defaults_match_pv_values(self, state_num, block_num, take_data):
+        self._lewis.backdoor_set_on_device("state_num", state_num)
+        self._lewis.backdoor_set_on_device("block_num", block_num)
+        self._lewis.backdoor_set_on_device("take_data", take_data)
+
+        self.ca.assert_that_pv_is("STATE_NUM", state_num)
+        self.ca.assert_that_pv_is("BLOCK_NUM", block_num)
+        self.ca.assert_that_pv_is("TAKE_DATA", "YES" if take_data else "NO")

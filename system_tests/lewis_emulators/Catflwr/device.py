@@ -9,7 +9,10 @@ class SimulatedCatflwr(StateMachineDevice):
         """
         Initialize all of the device's attributes.
         """
-        pass
+        self.state_num = 1
+        self.block_num = 2
+        self.take_data = 1
+        self.connected = True
 
     def _get_state_handlers(self):
         return {
