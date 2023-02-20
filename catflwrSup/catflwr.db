@@ -46,9 +46,11 @@ record(longin, "$(P)BLOCK_NUM")
 
 record(bi, "$(P)TAKE_DATA")
 {
-    field(INP, "$(P)STATUS_ARRAY.[0] CP MS")
+    field(INP, "$(P)STATUS_ARRAY.[2] CP MS")
     field(DESC,  "Whether to start taking data")
     field(DTYP, "Soft Channel")
 	info(archive, "VAL")
     info(INTEREST, "HIGH")
+    field(ZNAM, "NO")
+    field(ONAM, "YES")
 }

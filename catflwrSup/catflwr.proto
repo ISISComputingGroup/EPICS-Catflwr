@@ -5,5 +5,6 @@ ReplyTimeout = 2000;
 
 
 get_st_array {
-    in "%d,%d,%d"
+    separator=",";
+    in "%d";
 }
