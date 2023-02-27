@@ -1,0 +1,56 @@
+record(bo, "$(P)SIM")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+    field(ZNAM, "NO")
+    field(ONAM, "YES")
+    field(VAL, "$(RECSIM=0)")
+    field(PINI, "YES")
+}
+
+record(bo, "$(P)DISABLE")
+{
+    field(DESC, "Disable comms")
+    field(PINI, "YES")
+    field(VAL, "$(DISABLE=0)")
+    field(OMSL, "supervisory")
+    field(ZNAM, "COMMS ENABLED")
+    field(ONAM, "COMMS DISABLED")
+}
+
+record(waveform, "$(P)STATUS_ARRAY") {
+    field(DESC, "Return status")
+    field(DTYP, "stream")
+    field(INP, "@catflwr.proto get_st_array $(PORT)")
+    field(NELM, "3")
+    field(SCAN, "I/O Intr")
+    field(SDIS, "$(P)DISABLE")
+    field(FTVL, "LONG")
+}
+
+record(longin, "$(P)STATE_NUM")
+{
+    field(INP, "$(P)STATUS_ARRAY.[0] CP MS")
+    field(DESC,  "State number")
+    field(DTYP, "Soft Channel")
+    info(INTEREST, "HIGH")
+}
+
+record(longin, "$(P)BLOCK_NUM")
+{
+    field(INP, "$(P)STATUS_ARRAY.[1] CP MS")
+    field(DESC,  "Block number")
+    field(DTYP, "Soft Channel")
+    info(INTEREST, "HIGH")
+}
+
+record(bi, "$(P)TAKE_DATA")
+{
+    field(INP, "$(P)STATUS_ARRAY.[2] CP MS")
+    field(DESC,  "Whether to start taking data")
+    field(DTYP, "Soft Channel")
+	info(archive, "VAL")
+    info(INTEREST, "HIGH")
+    field(ZNAM, "NO")
+    field(ONAM, "YES")
+}

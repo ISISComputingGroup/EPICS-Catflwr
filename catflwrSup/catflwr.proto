@@ -1,0 +1,10 @@
+OutTerminator = "\r";
+InTerminator = "\r";
+
+ReplyTimeout = 2000;
+
+
+get_st_array {
+    separator=",";
+    in "%d";
+}
