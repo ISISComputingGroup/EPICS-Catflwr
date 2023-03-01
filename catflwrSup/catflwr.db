@@ -34,6 +34,7 @@ record(longin, "$(P)STATE_NUM")
     field(DESC,  "State number")
     field(DTYP, "Soft Channel")
     info(INTEREST, "HIGH")
+    field(EGU, "")
 }
 
 record(longin, "$(P)BLOCK_NUM")
@@ -42,6 +43,7 @@ record(longin, "$(P)BLOCK_NUM")
     field(DESC,  "Block number")
     field(DTYP, "Soft Channel")
     info(INTEREST, "HIGH")
+    field(EGU, "")
 }
 
 record(bi, "$(P)TAKE_DATA")
