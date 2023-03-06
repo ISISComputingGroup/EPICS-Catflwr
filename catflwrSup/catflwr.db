@@ -46,13 +46,17 @@ record(longin, "$(P)BLOCK_NUM")
     field(EGU, "")
 }
 
-record(bi, "$(P)TAKE_DATA")
+record(mbbi, "$(P)TAKE_DATA")
 {
     field(INP, "$(P)STATUS_ARRAY.[2] CP MS")
     field(DESC,  "Whether to start taking data")
     field(DTYP, "Soft Channel")
 	info(archive, "VAL")
     info(INTEREST, "HIGH")
-    field(ZNAM, "NO")
-    field(ONAM, "YES")
+    field(ZRVL, "0")
+    field(ONVL, "1")
+    field(TWVL, "2")
+    field(ZRST, "Don't acquire")
+    field(ONST, "Acquire")
+    field(TWST, "Stop acquiring")
 }

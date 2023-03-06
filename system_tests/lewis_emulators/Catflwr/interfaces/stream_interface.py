@@ -44,4 +44,4 @@ class CatflwrStreamInterface(StreamInterface):
             handler.unsolicited_reply(self._construct_status_message())
 
     def _construct_status_message(self):
-        return f"{self.device.state_num},{self.device.block_num},{self.device.take_data}\r".encode()
+        return f"{self.device.state_num},{self.device.block_num},{self.device.take_data}\r\n".encode()
