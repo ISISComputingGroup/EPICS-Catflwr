@@ -5,6 +5,7 @@ from utils.ioc_launcher import get_default_ioc_dir
 from utils.test_modes import TestModes
 from utils.testing import get_running_lewis_and_ioc
 from parameterized import parameterized
+from time import sleep
 
 DEVICE_PREFIX = "CATFLWR_01"
 
@@ -32,7 +33,8 @@ class CatflwrTests(unittest.TestCase):
     @parameterized.expand(
         [
             [2, 3, 0],
-            [1, 2, 1]
+            [1, 2, 1],
+            [4, 4, 2]
         ]
     )
     def test_GIVEN_expected_defaults_from_device_WHEN_getting_getting_each_pv_THEN_defaults_match_pv_values(self, state_num, block_num, take_data):
@@ -42,4 +44,5 @@ class CatflwrTests(unittest.TestCase):
 
         self.ca.assert_that_pv_is("STATE_NUM", state_num)
         self.ca.assert_that_pv_is("BLOCK_NUM", block_num)
-        self.ca.assert_that_pv_is("TAKE_DATA", "YES" if take_data else "NO")
+        expected_take_data = "Don't acquire" if take_data == 0 else "Acquire" if take_data == 1 else "Stop acquiring"
+        self.ca.assert_that_pv_is("TAKE_DATA", expected_take_data)

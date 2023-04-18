@@ -1,5 +1,5 @@
-OutTerminator = "\r";
-InTerminator = "\r";
+OutTerminator = "\r\n";
+InTerminator = "\r\n";
 
 ReplyTimeout = 2000;
 
