@@ -1,8 +1,8 @@
-from lewis.adapters.stream import StreamInterface, Cmd
-from lewis.utils.command_builder import CmdBuilder
-from lewis.core.logging import has_log
-from lewis.utils.replies import conditional_reply
 import threading
+
+from lewis.adapters.stream import StreamInterface
+from lewis.core.logging import has_log
+
 
 @has_log
 class CatflwrStreamInterface(StreamInterface):
