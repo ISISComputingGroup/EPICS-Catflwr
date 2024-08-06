@@ -1,13 +1,11 @@
-from lewis.adapters.stream import StreamInterface, Cmd
-from lewis.utils.command_builder import CmdBuilder
-from lewis.core.logging import has_log
-from lewis.utils.replies import conditional_reply
 import threading
+
+from lewis.adapters.stream import StreamInterface
+from lewis.core.logging import has_log
+
 
 @has_log
 class CatflwrStreamInterface(StreamInterface):
-    
-
     # Commands that we expect via serial during normal operation (No commands - the device always sends a stream of
     # information to the IOC without being polled)
     commands = {}
@@ -44,4 +42,6 @@ class CatflwrStreamInterface(StreamInterface):
             handler.unsolicited_reply(self._construct_status_message())
 
     def _construct_status_message(self):
-        return f"{self.device.state_num},{self.device.block_num},{self.device.take_data}\r\n".encode()
+        return (
+            f"{self.device.state_num},{self.device.block_num},{self.device.take_data}\r\n".encode()
+        )
